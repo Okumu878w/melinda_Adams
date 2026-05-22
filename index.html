@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Melinda Adams — Tech Solutions & Digital Development</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Nunito:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --ink:#1a0a12;
+  --ink2:#4a1a2e;
+  --muted:#9e6b80;
+  --pale:#fdf0f5;
+  --card:#ffffff;
+  --border:#f0d6e4;
+  --accent:#c2185b;
+  --accent2:#880e4f;
+  --accent-pale:#fce4ec;
+  --gold:#7b1fa2;
+  --gold-pale:#f3e5f5;
+  --green:#0f7a4a;
+  --green-pale:#e8f7f0;
+  --red:#c0261a;
+  --radius:14px;
+  --shadow:0 2px 16px rgba(194,24,91,.08);
+  --shadow-lg:0 8px 40px rgba(194,24,91,.14);
+}
+
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{font-family:'Nunito',sans-serif;font-size:16px;color:var(--ink);background:#fff8fb;line-height:1.7}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,248,251,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 5vw}
+.nav-inner{max-width:1120px;margin:auto;display:flex;align-items:center;justify-content:space-between;height:62px}
+.nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.15rem;color:var(--ink);text-decoration:none;letter-spacing:-.02em}
+.nav-logo span{color:var(--accent)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-size:.9rem;font-weight:500;color:var(--muted);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--accent)}
+.nav-cta{background:var(--accent);color:#fff;padding:.45rem 1.2rem;border-radius:8px;font-size:.88rem;font-weight:500;text-decoration:none;transition:background .2s}
+.nav-cta:hover{background:var(--accent2)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hamburger span{width:22px;height:2px;background:var(--ink);border-radius:2px;transition:.3s}
+.mobile-menu{display:none;position:fixed;top:62px;left:0;right:0;background:#fff;border-bottom:1px solid var(--border);padding:1.5rem 5vw;z-index:99;flex-direction:column;gap:1.2rem}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-size:1rem;font-weight:500;color:var(--ink);text-decoration:none;padding:.5rem 0;border-bottom:1px solid var(--border)}
+.mobile-menu a:last-child{border-bottom:none;color:var(--accent);font-weight:600}
+
+/* ── HERO ── */
+#hero{min-height:100vh;display:flex;align-items:center;padding:100px 5vw 60px;background:linear-gradient(135deg,#fff0f6 0%,#fffafc 60%,#f8edf5 100%)}
+.hero-inner{max-width:1120px;margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:var(--accent-pale);color:var(--accent);font-size:.8rem;font-weight:600;padding:.35rem .9rem;border-radius:20px;border:1px solid rgba(194,24,91,.15);margin-bottom:1.5rem;letter-spacing:.03em;text-transform:uppercase}
+.hero-badge::before{content:'';width:7px;height:7px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+.hero-title{font-family:'Syne',sans-serif;font-size:clamp(2.2rem,4.5vw,3.6rem);font-weight:800;line-height:1.1;letter-spacing:-.03em;color:var(--ink);margin-bottom:1.2rem}
+.hero-title .line2{color:var(--accent)}
+.hero-sub{font-size:1.05rem;color:var(--muted);max-width:480px;line-height:1.75;margin-bottom:2rem;font-weight:300}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-primary{background:var(--accent);color:#fff;padding:.75rem 1.8rem;border-radius:9px;font-size:.95rem;font-weight:500;text-decoration:none;transition:all .2s;border:none;cursor:pointer}
+.btn-primary:hover{background:var(--accent2);transform:translateY(-1px);box-shadow:0 6px 20px rgba(194,24,91,.25)}
+.btn-outline{background:transparent;color:var(--accent);border:1.5px solid var(--accent);padding:.75rem 1.8rem;border-radius:9px;font-size:.95rem;font-weight:500;text-decoration:none;transition:all .2s}
+.btn-outline:hover{background:var(--accent-pale)}
+.hero-stats{display:flex;gap:2.5rem;margin-top:2.5rem}
+.stat{display:flex;flex-direction:column}
+.stat-num{font-family:'Syne',sans-serif;font-size:1.9rem;font-weight:800;color:var(--ink);line-height:1}
+.stat-label{font-size:.8rem;color:var(--muted);margin-top:.25rem}
+
+/* ── PHOTO CARD ── */
+.hero-photo-wrap{display:flex;justify-content:center;align-items:center}
+.photo-card{position:relative;width:320px;max-width:100%}
+.photo-frame{width:100%;aspect-ratio:4/5;border-radius:24px;overflow:hidden;background:linear-gradient(145deg,#fce4ec,#f8bbd9);border:3px solid rgba(194,24,91,.15);box-shadow:var(--shadow-lg);position:relative}
+.photo-frame img{width:100%;height:100%;object-fit:cover;display:block}
+.photo-placeholder{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--accent);gap:1rem}
+.photo-placeholder svg{opacity:.35}
+.photo-placeholder p{font-size:.85rem;color:var(--muted);text-align:center;max-width:180px;line-height:1.5}
+.photo-badge{position:absolute;bottom:-16px;left:50%;transform:translateX(-50%);background:#fff;border:1.5px solid var(--border);border-radius:12px;padding:.6rem 1.2rem;display:flex;align-items:center;gap:.5rem;white-space:nowrap;box-shadow:var(--shadow)}
+.photo-badge-dot{width:9px;height:9px;background:#22c55e;border-radius:50%}
+.photo-badge-text{font-size:.82rem;font-weight:600;color:var(--ink)}
+
+/* ── SECTION COMMONS ── */
+section{padding:90px 5vw}
+.section-inner{max-width:1120px;margin:auto}
+.section-tag{font-size:.78rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.6rem}
+.section-title{font-family:'Syne',sans-serif;font-size:clamp(1.7rem,3vw,2.4rem);font-weight:800;color:var(--ink);letter-spacing:-.02em;margin-bottom:.75rem}
+.section-sub{font-size:1rem;color:var(--muted);max-width:560px;line-height:1.75;font-weight:300;margin-bottom:3rem}
+
+/* ── SERVICES ── */
+#services{background:#fff}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.25rem}
+.service-card{background:var(--pale);border:1px solid var(--border);border-radius:var(--radius);padding:1.6rem;transition:all .25s;cursor:default}
+.service-card:hover{background:#fff;box-shadow:var(--shadow-lg);transform:translateY(-3px);border-color:rgba(194,24,91,.2)}
+.service-icon{width:44px;height:44px;border-radius:10px;background:var(--accent-pale);display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:1rem}
+.service-name{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;color:var(--ink);margin-bottom:.4rem}
+.service-items{font-size:.88rem;color:var(--muted);line-height:1.7}
+.service-deliverable{margin-top:.85rem;padding:.5rem .8rem;background:#fff;border-radius:8px;border:1px solid var(--border);font-size:.8rem;color:var(--accent);font-weight:500}
+
+/* ── PRICING ── */
+#pricing{background:linear-gradient(180deg,#fff8fb 0%,#fff 100%)}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;align-items:start}
+.price-card{background:var(--card);border:1.5px solid var(--border);border-radius:18px;padding:2rem;position:relative;transition:all .25s}
+.price-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.price-card.featured{border-color:var(--accent);box-shadow:0 0 0 4px rgba(194,24,91,.08),var(--shadow-lg)}
+.price-card.featured .featured-badge{display:flex}
+.featured-badge{display:none;position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;font-size:.75rem;font-weight:700;padding:.35rem 1rem;border-radius:20px;white-space:nowrap;letter-spacing:.04em}
+.price-tier{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.75rem}
+.price-tier.starter{color:var(--muted)}
+.price-tier.professional{color:var(--accent)}
+.price-tier.enterprise{color:#7b1fa2}
+.price-amount{font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:var(--ink);line-height:1.1;margin-bottom:.25rem}
+.price-timeline{font-size:.82rem;color:var(--muted);margin-bottom:1.25rem;padding-bottom:1.25rem;border-bottom:1px solid var(--border)}
+.price-features{list-style:none;display:flex;flex-direction:column;gap:.6rem;margin-bottom:1.5rem}
+.price-features li{font-size:.88rem;color:var(--ink2);display:flex;align-items:flex-start;gap:.6rem;line-height:1.5}
+.price-features li::before{content:'✓';color:var(--green);font-weight:700;flex-shrink:0;margin-top:.1rem}
+.price-btn{display:block;text-align:center;padding:.7rem;border-radius:9px;font-size:.9rem;font-weight:600;text-decoration:none;transition:all .2s}
+.price-btn.starter-btn{border:1.5px solid var(--border);color:var(--ink2)}
+.price-btn.starter-btn:hover{border-color:var(--accent);color:var(--accent)}
+.price-btn.pro-btn{background:var(--accent);color:#fff}
+.price-btn.pro-btn:hover{background:var(--accent2)}
+.price-btn.ent-btn{background:var(--gold-pale);color:#7b1fa2;border:1.5px solid rgba(123,31,162,.2)}
+.price-btn.ent-btn:hover{background:#e8c7f5}
+
+/* ── COMPARISON TABLE ── */
+#comparison{background:#fff}
+.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow)}
+table{width:100%;border-collapse:collapse;min-width:560px}
+thead th{padding:1rem 1.2rem;text-align:center;font-family:'Syne',sans-serif;font-size:.85rem;font-weight:700;letter-spacing:.02em;border-bottom:2px solid var(--border)}
+thead th:first-child{text-align:left;color:var(--muted)}
+thead th.th-starter{color:var(--muted)}
+thead th.th-pro{color:#c2185b;background:#fce4ec}
+thead th.th-ent{color:#7b1fa2}
+tbody tr{border-bottom:1px solid var(--border)}
+tbody tr:last-child{border-bottom:none}
+tbody tr:nth-child(even){background:var(--pale)}
+tbody td{padding:.85rem 1.2rem;font-size:.88rem;text-align:center;color:var(--ink2)}
+tbody td:first-child{text-align:left;font-weight:500;color:var(--ink)}
+.t-yes{color:var(--green);font-weight:700;font-size:1rem}
+.t-no{color:var(--red);font-weight:700;font-size:1rem}
+.t-pro-col{background:rgba(194,24,91,.03)}
+
+/* ── PAYMENT ── */
+#payment{background:linear-gradient(135deg,#2d0a1e 0%,#4a1a2e 100%);color:#fff}
+#payment .section-title{color:#fff}
+#payment .section-sub{color:rgba(255,255,255,.6)}
+#payment .section-tag{color:rgba(255,255,255,.5)}
+.payment-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.25rem}
+.step-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:var(--radius);padding:1.5rem;position:relative;backdrop-filter:blur(10px)}
+.step-num{font-family:'Syne',sans-serif;font-size:2.5rem;font-weight:800;color:rgba(255,255,255,.1);line-height:1;margin-bottom:.5rem}
+.step-title{font-size:.95rem;font-weight:600;color:#fff;margin-bottom:.4rem}
+.step-detail{font-size:.83rem;color:rgba(255,255,255,.55);line-height:1.6}
+.payment-note{margin-top:2rem;text-align:center;font-size:.9rem;color:rgba(255,255,255,.5);padding:1rem;border-top:1px solid rgba(255,255,255,.08)}
+.payment-note strong{color:rgba(255,255,255,.8)}
+
+/* ── WHY ME ── */
+#why{background:#fff}
+.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem}
+.why-card{padding:1.6rem;border-radius:var(--radius);border:1px solid var(--border);background:var(--pale);transition:all .25s}
+.why-card:hover{background:#fff;box-shadow:var(--shadow);border-color:rgba(194,24,91,.2)}
+.why-icon{font-size:1.8rem;margin-bottom:.75rem}
+.why-title{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;color:var(--ink);margin-bottom:.4rem}
+.why-text{font-size:.88rem;color:var(--muted);line-height:1.65}
+
+/* ── CTA / CONTACT ── */
+#contact{background:linear-gradient(135deg,#c2185b 0%,#880e4f 100%);color:#fff;text-align:center;padding:90px 5vw}
+#contact .section-tag{color:rgba(255,255,255,.6)}
+#contact .section-title{color:#fff}
+.contact-steps{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:2.5rem}
+.contact-step{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:.75rem 1.25rem;font-size:.88rem;color:#fff;display:flex;align-items:center;gap:.5rem}
+.contact-step-num{font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;opacity:.6}
+.contact-info{display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;margin-top:2rem}
+.contact-pill{display:flex;align-items:center;gap:.6rem;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:30px;padding:.55rem 1.2rem;font-size:.9rem;color:#fff;text-decoration:none;transition:background .2s}
+.contact-pill:hover{background:rgba(255,255,255,.25)}
+.contact-pill svg{opacity:.75}
+
+/* ── FOOTER ── */
+footer{background:var(--ink);color:rgba(255,255,255,.4);text-align:center;padding:1.5rem 5vw;font-size:.82rem}
+footer span{color:rgba(255,255,255,.2)}
+
+/* ── SCROLL REVEAL ── */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .6s ease,transform .6s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .hero-inner{grid-template-columns:1fr;text-align:center}
+  .hero-sub{margin:0 auto 2rem}
+  .hero-actions{justify-content:center}
+  .hero-stats{justify-content:center}
+  .hero-photo-wrap{order:-1}
+  .photo-card{width:240px}
+  .pricing-grid{grid-template-columns:1fr}
+  .price-card.featured{order:-1}
+}
+@media(max-width:680px){
+  .nav-links,.nav-cta{display:none}
+  .hamburger{display:flex}
+  section{padding:64px 5vw}
+  .hero-stats{gap:1.5rem}
+  .stat-num{font-size:1.5rem}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">Melinda<span>.</span>dev</a>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#comparison">Compare</a></li>
+      <li><a href="#why">Why Me</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Get a Quote</a>
+    <div class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#services" onclick="toggleMenu()">Services</a>
+  <a href="#pricing" onclick="toggleMenu()">Pricing</a>
+  <a href="#comparison" onclick="toggleMenu()">Compare Tiers</a>
+  <a href="#why" onclick="toggleMenu()">Why Me</a>
+  <a href="#contact" onclick="toggleMenu()">Get a Quote →</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-badge">📍 Nairobi, Kenya · Available for Projects</div>
+      <h1 class="hero-title">
+        Full-Stack Tech<br>
+        <span class="line2">Solutions & Digital</span><br>
+        Development
+      </h1>
+      <p class="hero-sub">
+        End-to-end technology services — from custom web & mobile apps to AI integration, hardware automation, and cloud deployment. One developer, zero handoffs.
+      </p>
+      <div class="hero-actions">
+        <a href="#pricing" class="btn-primary">View Pricing</a>
+        <a href="#services" class="btn-outline">Explore Services</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num">6</span><span class="stat-label">Service Areas</span></div>
+        <div class="stat"><span class="stat-num">3</span><span class="stat-label">Pricing Tiers</span></div>
+        <div class="stat"><span class="stat-num">24+</span><span class="stat-label">Services Offered</span></div>
+      </div>
+    </div>
+    <div class="hero-photo-wrap">
+      <div class="photo-card">
+        <div class="photo-frame">
+          <!-- 
+            TO ADD YOUR PHOTO:
+            Replace the placeholder block below with:
+            <img src="your-photo.jpg" alt="Melinda Adams" />
+            Then delete the photo-placeholder div.
+          -->
+          <img src="melinda.jpeg" alt="Melinda Adams" />
+        </div>
+        <div class="photo-badge">
+          <div class="photo-badge-dot"></div>
+          <span class="photo-badge-text">Open to New Projects</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-inner">
+    <p class="section-tag reveal">What I Do</p>
+    <h2 class="section-title reveal">Services Overview</h2>
+    <p class="section-sub reveal">A comprehensive range of technology services delivered end-to-end — from concept to production.</p>
+    <div class="services-grid">
+
+      <div class="service-card reveal">
+        <div class="service-icon">🌐</div>
+        <div class="service-name">Web Development</div>
+        <div class="service-items">Custom web apps, business websites, REST APIs, e-commerce stores, admin dashboards</div>
+        <div class="service-deliverable">↗ Live hosted website or web application</div>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-icon">📱</div>
+        <div class="service-name">Android Apps</div>
+        <div class="service-items">Native Android apps, cross-platform via Flutter, Play Store publishing, app maintenance</div>
+        <div class="service-deliverable">↗ Published Android application</div>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-icon">🤖</div>
+        <div class="service-name">AI Integration</div>
+        <div class="service-items">AI chatbots, LLM API integration (OpenAI, Claude, Gemini), content generation tools, smart automation workflows</div>
+        <div class="service-deliverable">↗ AI-powered feature or standalone tool</div>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-icon">⚙️</div>
+        <div class="service-name">Hardware & IoT</div>
+        <div class="service-items">Arduino / Raspberry Pi builds, IoT sensor integration, home & office automation systems</div>
+        <div class="service-deliverable">↗ Working hardware + software system</div>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-icon">☁️</div>
+        <div class="service-name">Deployment & DevOps</div>
+        <div class="service-items">Cloud deployment (AWS, GCP, Vercel), CI/CD pipelines, domain & SSL setup, performance tuning</div>
+        <div class="service-deliverable">↗ Deployed & monitored production system</div>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-icon">💡</div>
+        <div class="service-name">Consulting & Support</div>
+        <div class="service-items">Tech consulting, code audits, legacy modernization, team training & mentorship</div>
+        <div class="service-deliverable">↗ Report, action plan, or training sessions</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="section-inner">
+    <p class="section-tag reveal">Transparent Pricing</p>
+    <h2 class="section-title reveal">Pricing Tiers</h2>
+    <p class="section-sub reveal">All prices in Kenyan Shillings (KES). Packages can be customised — these are starting points for common project scopes.</p>
+    <div class="pricing-grid">
+
+      <div class="price-card reveal">
+        <div class="price-tier starter">Starter</div>
+        <div class="price-amount">KES 15,000 – 50,000</div>
+        <div class="price-timeline">per project &nbsp;·&nbsp; Typical timeline: 1 – 2 weeks</div>
+        <ul class="price-features">
+          <li>Landing page or business website (up to 5 pages)</li>
+          <li>Simple Android app (up to 3 screens)</li>
+          <li>Basic AI chatbot integration on an existing site</li>
+          <li>Domain setup, hosting & SSL certificate</li>
+          <li>1 round of revisions included</li>
+          <li>2 weeks post-launch support</li>
+        </ul>
+        <a href="#contact" class="price-btn starter-btn">Get Started</a>
+      </div>
+
+      <div class="price-card featured reveal">
+        <div class="featured-badge">MOST POPULAR</div>
+        <div class="price-tier professional">Professional</div>
+        <div class="price-amount">KES 80,000 – 250,000</div>
+        <div class="price-timeline">per project &nbsp;·&nbsp; Typical timeline: 3 – 6 weeks</div>
+        <ul class="price-features">
+          <li>Full-stack web application with user auth & database</li>
+          <li>Full Android app with backend API integration</li>
+          <li>Custom AI assistant or automation workflow</li>
+          <li>IoT hardware project with mobile/web control</li>
+          <li>Cloud deployment with CI/CD pipeline</li>
+          <li>3 rounds of revisions included</li>
+          <li>1 month post-launch support & monitoring</li>
+        </ul>
+        <a href="#contact" class="price-btn pro-btn">Get Started</a>
+      </div>
+
+      <div class="price-card reveal">
+        <div class="price-tier enterprise">Enterprise</div>
+        <div class="price-amount">KES 300,000+</div>
+        <div class="price-timeline">custom quote &nbsp;·&nbsp; Typical timeline: 2 – 5 months</div>
+        <ul class="price-features">
+          <li>Large-scale multi-module web platform or SaaS</li>
+          <li>End-to-end: web + mobile + backend + AI</li>
+          <li>Enterprise IoT system with real-time dashboards</li>
+          <li>Cloud infrastructure with scaling & security hardening</li>
+          <li>Ongoing retainer available (monthly billing)</li>
+          <li>Dedicated support, SLA guarantee & documentation</li>
+          <li>Staff training sessions included</li>
+        </ul>
+        <a href="#contact" class="price-btn ent-btn">Request Custom Quote</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON TABLE -->
+<section id="comparison">
+  <div class="section-inner">
+    <p class="section-tag reveal">Side by Side</p>
+    <h2 class="section-title reveal">Tier Feature Comparison</h2>
+    <p class="section-sub reveal">Not sure which tier fits? This breakdown makes it easy to choose.</p>
+    <div class="table-wrap reveal">
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align:left;padding-left:1.2rem;color:#6b7294;font-size:.85rem">Feature</th>
+            <th class="th-starter">Starter</th>
+            <th class="th-pro">Professional</th>
+            <th class="th-ent">Enterprise</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Website / Web App</td><td class="t-yes">✓</td><td class="t-pro-col t-yes">✓</td><td class="t-yes">✓</td></tr>
+          <tr><td>Android Mobile App</td><td>Basic</td><td class="t-pro-col">Full</td><td>Full + iOS</td></tr>
+          <tr><td>AI / Chatbot Integration</td><td>Basic</td><td class="t-pro-col t-yes">✓</td><td>Advanced</td></tr>
+          <tr><td>Hardware / IoT</td><td class="t-no">✗</td><td class="t-pro-col t-yes">✓</td><td class="t-yes">✓</td></tr>
+          <tr><td>Cloud Deployment</td><td class="t-yes">✓</td><td class="t-pro-col t-yes">✓</td><td class="t-yes">✓</td></tr>
+          <tr><td>Custom API Development</td><td class="t-no">✗</td><td class="t-pro-col t-yes">✓</td><td class="t-yes">✓</td></tr>
+          <tr><td>CI/CD Pipeline</td><td class="t-no">✗</td><td class="t-pro-col t-yes">✓</td><td class="t-yes">✓</td></tr>
+          <tr><td>Post-launch Support</td><td>2 weeks</td><td class="t-pro-col">1 month</td><td>Ongoing</td></tr>
+          <tr><td>Revision Rounds</td><td>1</td><td class="t-pro-col">3</td><td>Unlimited</td></tr>
+          <tr><td>Training Sessions</td><td class="t-no">✗</td><td class="t-pro-col t-no">✗</td><td class="t-yes">✓</td></tr>
+          <tr><td>Monthly Retainer Option</td><td class="t-no">✗</td><td class="t-pro-col">Optional</td><td class="t-yes">✓</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- PAYMENT -->
+<section id="payment">
+  <div class="section-inner">
+    <p class="section-tag reveal">How It Works</p>
+    <h2 class="section-title reveal">Payment Terms & Process</h2>
+    <p class="section-sub reveal">A simple, transparent milestone-based payment structure. No surprises.</p>
+    <div class="payment-steps">
+      <div class="step-card reveal">
+        <div class="step-num">01</div>
+        <div class="step-title">Proposal & Agreement</div>
+        <div class="step-detail">Scope, timeline, and pricing agreed upon. Contract signed.</div>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-num">02</div>
+        <div class="step-title">Deposit — 40%</div>
+        <div class="step-detail">Project kickoff payment. Work begins immediately after receipt.</div>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-num">03</div>
+        <div class="step-title">Mid-point — 30%</div>
+        <div class="step-detail">Paid upon delivery of working prototype or mid-project milestone.</div>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-num">04</div>
+        <div class="step-title">Final — 30%</div>
+        <div class="step-detail">Paid on final delivery, testing sign-off, and deployment.</div>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-num">05</div>
+        <div class="step-title">Retainer (optional)</div>
+        <div class="step-detail">Monthly billing available for ongoing support, updates, and new features.</div>
+      </div>
+    </div>
+    <div class="payment-note"><strong>Accepted payment methods:</strong> M-Pesa · Bank Transfer · Other agreed method</div>
+  </div>
+</section>
+
+<!-- WHY ME -->
+<section id="why">
+  <div class="section-inner">
+    <p class="section-tag reveal">Why Choose Me</p>
+    <h2 class="section-title reveal">The Melinda Advantage</h2>
+    <p class="section-sub reveal">What sets my work apart from the rest.</p>
+    <div class="why-grid">
+      <div class="why-card reveal">
+        <div class="why-icon">🔗</div>
+        <div class="why-title">Full-Stack Capability</div>
+        <div class="why-text">From the database to the UI to the mobile app — delivered by one person, no handoffs, no miscommunication.</div>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-icon">🧠</div>
+        <div class="why-title">AI-Native Approach</div>
+        <div class="why-text">Every solution is built with modern AI tools in mind, giving your product a real competitive edge in the market.</div>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-icon">🔌</div>
+        <div class="why-title">Hardware + Software</div>
+        <div class="why-text">One of the few professionals who can bridge physical IoT devices and digital applications seamlessly.</div>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-icon">🚀</div>
+        <div class="why-title">End-to-End Delivery</div>
+        <div class="why-text">Design, build, deploy, and support — handled completely so you can focus entirely on your business.</div>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-icon">📍</div>
+        <div class="why-title">Nairobi-Based</div>
+        <div class="why-text">Local availability for in-person meetings, live demos, and rapid response. No timezone headaches.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT / CTA -->
+<section id="contact">
+  <div class="section-inner" style="max-width:800px">
+    <p class="section-tag reveal">Let's Build Something</p>
+    <h2 class="section-title reveal" style="font-size:clamp(1.9rem,4vw,3rem)">Ready to Get Started?</h2>
+    <p style="font-size:1rem;color:rgba(255,255,255,.7);margin-bottom:2.5rem;font-weight:300;line-height:1.75" class="reveal">
+      Here's how we move forward. Four simple steps from idea to live product.
+    </p>
+    <div class="contact-steps reveal">
+      <div class="contact-step"><span class="contact-step-num">1</span> Free 30-min discovery call</div>
+      <div class="contact-step"><span class="contact-step-num">2</span> Receive tailored quote</div>
+      <div class="contact-step"><span class="contact-step-num">3</span> Sign the agreement</div>
+      <div class="contact-step"><span class="contact-step-num">4</span> Pay deposit & we begin</div>
+    </div>
+    <a href="mailto:adamsmelinda51@gmail.com" class="btn-primary" style="font-size:1.05rem;padding:.9rem 2.5rem;display:inline-block;margin-bottom:2rem" class="reveal">
+      Send Me a Message →
+    </a>
+    <div class="contact-info reveal">
+      <a href="mailto:adamsmelinda51@gmail.com" class="contact-pill">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        adamsmelinda51@gmail.com
+      </a>
+      <a href="tel:+254719414821" class="contact-pill">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.5 19.79 19.79 0 0 1 1.61 4.9 2 2 0 0 1 3.6 2.69h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 10.36a16 16 0 0 0 6.07 6.07l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 17z"/></svg>
+        +254 719 414 821
+      </a>
+      <span class="contact-pill">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        Nairobi, Kenya
+      </span>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 Melinda Adams &nbsp;<span>·</span>&nbsp; Full-Stack Tech Solutions &nbsp;<span>·</span>&nbsp; Nairobi, Kenya</p>
+</footer>
+
+<script>
+function toggleMenu(){
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+
+// Close mobile menu on outside click
+document.addEventListener('click',function(e){
+  const menu=document.getElementById('mobileMenu');
+  const hamburger=document.querySelector('.hamburger');
+  if(menu.classList.contains('open')&&!menu.contains(e.target)&&!hamburger.contains(e.target)){
+    menu.classList.remove('open');
+  }
+});
+
+// Scroll reveal
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add('visible');
+    }
+  });
+},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+
+document.querySelectorAll('.reveal').forEach((el,i)=>{
+  el.style.transitionDelay=(i%4)*0.07+'s';
+  observer.observe(el);
+});
+
+// Smooth nav highlight
+const sections=document.querySelectorAll('section[id]');
+const navLinks=document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll',()=>{
+  let current='';
+  sections.forEach(s=>{
+    if(window.scrollY>=s.offsetTop-120) current=s.id;
+  });
+  navLinks.forEach(a=>{
+    a.style.color=a.getAttribute('href')==='#'+current?'var(--accent)':'';
+  });
+});
+</script>
+</body>
+</html>
